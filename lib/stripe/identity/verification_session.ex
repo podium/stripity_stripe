@@ -104,4 +104,26 @@ defmodule Stripe.Identity.VerificationSession do
     |> put_method(:post)
     |> make_request()
   end
+
+  @doc """
+  Returns a list of VerificationSessions
+  """
+  @spec list(params, Stripe.options()) :: {:ok, Stripe.List.t(t)} | {:error, Stripe.Error.t()}
+        when params: %{
+          optional(:created) => Stripe.date_query(),
+          optional(:status) => String.t(),
+          optional(:ending_before) => t | Stripe.id(),
+          optional(:limit) => 1..100,
+          optional(:starting_after) => t | Stripe.id(),
+        }
+  def list(params \\ %{}, opts \\ []) do
+    new_request(opts)
+    |> prefix_expansions()
+    |> put_endpoint(@plural_endpoint)
+    |> put_method(:get)
+    |> put_params(params)
+    |> cast_to_id([:ending_before, :starting_after])
+    |> make_request()
+  end
+
 end
