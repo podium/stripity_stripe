@@ -40,6 +40,19 @@ defmodule Stripe.Terminal.Reader do
           livemode: boolean()
         }
 
+  @type cart :: %{
+          type: String.t() | nil,
+          line_items: list(line_item()) | nil,
+          currency: String.t(),
+          tax: integer(),
+          total: integer()
+        }
+
+  @type line_item :: %{
+          amount: integer(),
+          description: String.t()
+        }
+
   defstruct [
     :id,
     :device_type,
@@ -170,6 +183,45 @@ defmodule Stripe.Terminal.Reader do
   def process_payment_intent(id, params, opts \\ []) do
     new_request(opts)
     |> put_endpoint(@plural_endpoint <> "/#{get_id!(id)}/process_payment_intent")
+    |> put_method(:post)
+    |> put_params(params)
+    |> make_request()
+  end
+
+  @doc """
+  Process a setup intent by an async request to the the provided reader
+
+  Takes the `id` and a map with a setup intents id.
+  """
+  @spec process_setup_intent(Stripe.id() | t, params, Stripe.options()) ::
+          {:ok, t} | {:error, Stripe.Error.t()}
+        when params: %{
+               :setup_intent => String.t()
+             }
+
+  def process_setup_intent(id, params, opts \\ []) do
+    new_request(opts)
+    |> put_endpoint(@plural_endpoint <> "/#{get_id!(id)}/process_setup_intent")
+    |> put_method(:post)
+    |> put_params(params)
+    |> make_request()
+  end
+
+  @doc """
+  Sets the reader display of the provided reader
+
+  Takes the `id` and a map with type:cart and cart:%cart{}.
+  """
+  @spec set_reader_display(Stripe.id() | t, params, Stripe.options()) ::
+          {:ok, t} | {:error, Stripe.Error.t()}
+        when params: %{
+               :type => String.t(),
+               :cart => cart()
+             }
+
+  def set_reader_display(id, params, opts \\ []) do
+    new_request(opts)
+    |> put_endpoint(@plural_endpoint <> "/#{get_id!(id)}/set_reader_display")
     |> put_method(:post)
     |> put_params(params)
     |> make_request()
