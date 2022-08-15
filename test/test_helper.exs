@@ -6,10 +6,15 @@ Application.ensure_all_started(:mox)
 ExUnit.configure(exclude: [disabled: true], seed: 0)
 Logger.configure(level: :info)
 
-{:ok, pid} = Stripe.StripeMock.start_link(port: 12123, global: true)
+unless System.get_env("SKIP_STRIPE_MOCK_RUN") do
+  {:ok, _pid} = Stripe.StripeMock.start_link(port: 12111, global: true)
+end
 
-Application.put_env(:stripity_stripe, :api_base_url, "http://localhost:12123/v1/")
-Application.put_env(:stripity_stripe, :api_upload_url, "http://localhost:12123/v1/")
+api_base_url = System.get_env("STRIPE_API_BASE_URL") || "http://localhost:12111/v1/"
+api_upload_url = System.get_env("STRIPE_API_UPLOAD_URL") || "http://localhost:12112/v1/"
+
+Application.put_env(:stripity_stripe, :api_base_url, api_base_url)
+Application.put_env(:stripity_stripe, :api_upload_url, api_upload_url)
 Application.put_env(:stripity_stripe, :api_key, "sk_test_123")
 Application.put_env(:stripity_stripe, :log_level, :debug)
 
@@ -36,4 +41,6 @@ defmodule Helper do
   end
 end
 
-Helper.wait_until_stripe_mock_launch()
+unless System.get_env("SKIP_STRIPE_MOCK_RUN") do
+  Helper.wait_until_stripe_mock_launch()
+end

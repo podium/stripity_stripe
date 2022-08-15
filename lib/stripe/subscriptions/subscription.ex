@@ -38,6 +38,7 @@ defmodule Stripe.Subscription do
           id: Stripe.id(),
           object: String.t(),
           application_fee_percent: float | nil,
+          automatic_tax: map,
           billing_cycle_anchor: Stripe.timestamp() | nil,
           billing_thresholds: map | nil,
           collection_method: String.t() | nil,
@@ -71,6 +72,7 @@ defmodule Stripe.Subscription do
           start_date: Stripe.timestamp(),
           status: String.t(),
           tax_percent: float | nil,
+          transfer_data: map,
           trial_end: Stripe.timestamp() | nil,
           trial_start: Stripe.timestamp() | nil
         }
@@ -79,6 +81,7 @@ defmodule Stripe.Subscription do
     :id,
     :object,
     :application_fee_percent,
+    :automatic_tax,
     :billing_cycle_anchor,
     :billing_thresholds,
     :collection_method,
@@ -112,6 +115,7 @@ defmodule Stripe.Subscription do
     :start_date,
     :status,
     :tax_percent,
+    :transfer_data,
     :trial_end,
     :trial_start
   ]
@@ -146,7 +150,9 @@ defmodule Stripe.Subscription do
                ],
                optional(:default_payment_method) => Stripe.id(),
                optional(:default_tax_rates) => [Stripe.id()],
+               optional(:expand) => [String.t()],
                optional(:metadata) => Stripe.Types.metadata(),
+               optional(:payment_behavior) => String.t(),
                optional(:prorate) => boolean,
                optional(:proration_behavior) => String.t(),
                optional(:promotion_code) => Stripe.id(),
@@ -206,6 +212,7 @@ defmodule Stripe.Subscription do
                optional(:default_payment_method) => Stripe.id(),
                optional(:default_tax_rates) => [Stripe.id()],
                optional(:metadata) => Stripe.Types.metadata(),
+               optional(:pause_collection) => pause_collection(),
                optional(:prorate) => boolean,
                optional(:proration_behavior) => String.t(),
                optional(:proration_date) => Stripe.timestamp(),

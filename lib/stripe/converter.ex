@@ -19,6 +19,7 @@ defmodule Stripe.Converter do
     balance_transaction
     bank_account
     billing_portal.session
+    capability
     card
     charge
     checkout.session
@@ -31,10 +32,13 @@ defmodule Stripe.Converter do
     discount
     dispute
     ephemeral_key
+    radar.early_fraud_warning
     event
     external_account
     file
     file_link
+    identity.verification_session
+    identity.verification_report
     invoice
     invoiceitem
     issuing.authorization
@@ -50,6 +54,7 @@ defmodule Stripe.Converter do
     order_item
     order_return
     payment_intent
+    payment_link
     payment_method
     payout
     person
@@ -70,6 +75,8 @@ defmodule Stripe.Converter do
     tax_id
     topup
     terminal.connection_token
+    terminal.hardware_order
+    terminal.hardware_sku
     terminal.location
     terminal.reader
     transfer

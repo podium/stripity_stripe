@@ -8,6 +8,8 @@ defmodule Stripe.Terminal.Reader do
   - [Update a Reader](https://stripe.com/docs/api/terminal/readers/update)
   - [Delete a Reader](https://stripe.com/docs/api/terminal/readers/delete)
   - [List all Readers](https://stripe.com/docs/api/terminal/readers/list)
+  - [Cancel a reader action](not public)
+  - [Process a payment intent](not public)
   """
 
   use Stripe.Entity
@@ -25,7 +27,30 @@ defmodule Stripe.Terminal.Reader do
           object: String.t(),
           device_sw_version: String.t(),
           ip_address: String.t(),
+          livemode: boolean(),
+          action: action() | nil
+        }
+
+  @type action :: %{
+          type: String.t() | nil,
+          process_payment_intent: map() | nil,
+          status: String.t() | nil,
+          failure_code: String.t() | nil,
+          failure_message: String.t() | nil,
           livemode: boolean()
+        }
+
+  @type cart :: %{
+          type: String.t() | nil,
+          line_items: list(line_item()) | nil,
+          currency: String.t(),
+          tax: integer(),
+          total: integer()
+        }
+
+  @type line_item :: %{
+          amount: integer(),
+          description: String.t()
         }
 
   defstruct [
@@ -39,7 +64,8 @@ defmodule Stripe.Terminal.Reader do
     :object,
     :device_sw_version,
     :ip_address,
-    :livemode
+    :livemode,
+    :action
   ]
 
   @plural_endpoint "terminal/readers"
@@ -125,6 +151,79 @@ defmodule Stripe.Terminal.Reader do
     |> put_method(:get)
     |> put_params(params)
     |> cast_to_id([:ending_before, :starting_after])
+    |> make_request()
+  end
+
+  @doc """
+  Cancel any action pending on the physical reader
+
+  Takes the `id`.
+  """
+  @spec cancel_action(Stripe.id() | t, Stripe.options()) ::
+          {:ok, t} | {:error, Stripe.Error.t()}
+
+  def cancel_action(id, opts \\ []) do
+    new_request(opts)
+    |> put_endpoint(@plural_endpoint <> "/#{get_id!(id)}/cancel_action")
+    |> put_method(:post)
+    |> make_request()
+  end
+
+  @doc """
+  Process a payment intent by an async request to the the provided reader
+
+  Takes the `id` and a map with a payment intents id.
+  """
+  @spec process_payment_intent(Stripe.id() | t, params, Stripe.options()) ::
+          {:ok, t} | {:error, Stripe.Error.t()}
+        when params: %{
+               :payment_intent => String.t()
+             }
+
+  def process_payment_intent(id, params, opts \\ []) do
+    new_request(opts)
+    |> put_endpoint(@plural_endpoint <> "/#{get_id!(id)}/process_payment_intent")
+    |> put_method(:post)
+    |> put_params(params)
+    |> make_request()
+  end
+
+  @doc """
+  Process a setup intent by an async request to the the provided reader
+
+  Takes the `id` and a map with a setup intents id.
+  """
+  @spec process_setup_intent(Stripe.id() | t, params, Stripe.options()) ::
+          {:ok, t} | {:error, Stripe.Error.t()}
+        when params: %{
+               :setup_intent => String.t()
+             }
+
+  def process_setup_intent(id, params, opts \\ []) do
+    new_request(opts)
+    |> put_endpoint(@plural_endpoint <> "/#{get_id!(id)}/process_setup_intent")
+    |> put_method(:post)
+    |> put_params(params)
+    |> make_request()
+  end
+
+  @doc """
+  Sets the reader display of the provided reader
+
+  Takes the `id` and a map with type:cart and cart:%cart{}.
+  """
+  @spec set_reader_display(Stripe.id() | t, params, Stripe.options()) ::
+          {:ok, t} | {:error, Stripe.Error.t()}
+        when params: %{
+               :type => String.t(),
+               :cart => cart()
+             }
+
+  def set_reader_display(id, params, opts \\ []) do
+    new_request(opts)
+    |> put_endpoint(@plural_endpoint <> "/#{get_id!(id)}/set_reader_display")
+    |> put_method(:post)
+    |> put_params(params)
     |> make_request()
   end
 end
