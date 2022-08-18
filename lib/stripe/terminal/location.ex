@@ -20,7 +20,8 @@ defmodule Stripe.Terminal.Location do
           object: String.t(),
           display_name: String.t(),
           metadata: Stripe.Types.metadata(),
-          livemode: boolean()
+          livemode: boolean(),
+          configuration_overrides: String.t()
         }
 
   defstruct [
@@ -29,7 +30,8 @@ defmodule Stripe.Terminal.Location do
     :address,
     :display_name,
     :object,
-    :livemode
+    :livemode,
+    :configuration_overrides
   ]
 
   @plural_endpoint "terminal/locations"
@@ -43,7 +45,8 @@ defmodule Stripe.Terminal.Location do
                %{
                  :address => Stripe.Types.address(),
                  :display_name => String.t(),
-                 optional(:metadata) => Stripe.Types.metadata()
+                 optional(:metadata) => Stripe.Types.metadata(),
+                 optional(:configuration_overrides) => String.t()
                }
                | %{}
 
@@ -76,6 +79,7 @@ defmodule Stripe.Terminal.Location do
                optional(:default_currency) => Stripe.Types.address(),
                optional(:display_name) => String.t(),
                optional(:metadata) => Stripe.Types.metadata()
+               optional(:configuration_overrides) => String.t()
              }
   def update(id, params, opts \\ []) do
     new_request(opts)
