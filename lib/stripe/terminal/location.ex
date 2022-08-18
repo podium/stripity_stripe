@@ -78,7 +78,7 @@ defmodule Stripe.Terminal.Location do
         when params: %{
                optional(:default_currency) => Stripe.Types.address(),
                optional(:display_name) => String.t(),
-               optional(:metadata) => Stripe.Types.metadata()
+               optional(:metadata) => Stripe.Types.metadata(),
                optional(:configuration_overrides) => String.t()
              }
   def update(id, params, opts \\ []) do
