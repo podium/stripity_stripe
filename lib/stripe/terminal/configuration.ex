@@ -33,20 +33,20 @@ defmodule Stripe.Terminal.Configuration do
         }
 
   @type tipping :: %{
-          aud: Stipe.Types.aud(),
-          cad: Stipe.Types.cad(),
-          chf: Stipe.Types.chf(),
-          czk: Stipe.Types.czk(),
-          dkk: Stipe.Types.dkk(),
-          eur: Stipe.Types.eur(),
-          gbp: Stipe.Types.gbp(),
-          hkd: Stipe.Types.hkd(),
-          myr: Stipe.Types.myr(),
-          nok: Stipe.Types.nok(),
-          nzd: Stipe.Types.nzd(),
-          sek: Stipe.Types.sek(),
-          sgd: Stipe.Types.sgd(),
-          usd: Stipe.Types.usd()
+          aud: Stripe.Types.aud(),
+          cad: Stripe.Types.cad(),
+          chf: Stripe.Types.chf(),
+          czk: Stripe.Types.czk(),
+          dkk: Stripe.Types.dkk(),
+          eur: Stripe.Types.eur(),
+          gbp: Stripe.Types.gbp(),
+          hkd: Stripe.Types.hkd(),
+          myr: Stripe.Types.myr(),
+          nok: Stripe.Types.nok(),
+          nzd: Stripe.Types.nzd(),
+          sek: Stripe.Types.sek(),
+          sgd: Stripe.Types.sgd(),
+          usd: Stripe.Types.usd()
         }
 
   defstruct [
