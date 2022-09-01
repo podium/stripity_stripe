@@ -67,8 +67,8 @@ defmodule Stripe.Types do
         }
 
   @type aud :: %{
-          fixed_amounts: Stripe.List.t(),
-          percentages: Stripe.List.t(),
+          fixed_amounts: Stripe.List.t(non_neg_integer),
+          percentages: Stripe.List.t(non_neg_integer),
           smart_tip_threshold: non_neg_integer
         }
 
@@ -79,74 +79,74 @@ defmodule Stripe.Types do
         }
 
   @type chf :: %{
-          fixed_amounts: Stripe.List.t(),
-          percentages: Stripe.List.t(),
+          fixed_amounts: Stripe.List.t(non_neg_integer),
+          percentages: Stripe.List.t(non_neg_integer),
           smart_tip_threshold: non_neg_integer
         }
 
   @type czk :: %{
-          fixed_amounts: Stripe.List.t(),
-          percentages: Stripe.List.t(),
+          fixed_amounts: Stripe.List.t(non_neg_integer),
+          percentages: Stripe.List.t(non_neg_integer),
           smart_tip_threshold: non_neg_integer
         }
 
   @type dkk :: %{
-          fixed_amounts: Stripe.List.t(),
-          percentages: Stripe.List.t(),
+          fixed_amounts: Stripe.List.t(non_neg_integer),
+          percentages: Stripe.List.t(non_neg_integer),
           smart_tip_threshold: non_neg_integer
         }
 
   @type eur :: %{
-          fixed_amounts: Stripe.List.t(),
-          percentages: Stripe.List.t(),
+          fixed_amounts: Stripe.List.t(non_neg_integer),
+          percentages: Stripe.List.t(non_neg_integer),
           smart_tip_threshold: non_neg_integer
         }
 
   @type gbp :: %{
-          fixed_amounts: Stripe.List.t(),
-          percentages: Stripe.List.t(),
+          fixed_amounts: Stripe.List.t(non_neg_integer),
+          percentages: Stripe.List.t(non_neg_integer),
           smart_tip_threshold: non_neg_integer
         }
 
   @type hkd :: %{
-          fixed_amounts: Stripe.List.t(),
-          percentages: Stripe.List.t(),
+          fixed_amounts: Stripe.List.t(non_neg_integer),
+          percentages: Stripe.List.t(non_neg_integer),
           smart_tip_threshold: non_neg_integer
         }
 
   @type myr :: %{
-          fixed_amounts: Stripe.List.t(),
-          percentages: Stripe.List.t(),
+          fixed_amounts: Stripe.List.t(non_neg_integer),
+          percentages: Stripe.List.t(non_neg_integer),
           smart_tip_threshold: non_neg_integer
         }
 
   @type nok :: %{
-          fixed_amounts: Stripe.List.t(),
-          percentages: Stripe.List.t(),
+          fixed_amounts: Stripe.List.t(non_neg_integer),
+          percentages: Stripe.List.t(non_neg_integer),
           smart_tip_threshold: non_neg_integer
         }
 
   @type nzd :: %{
-          fixed_amounts: Stripe.List.t(),
-          percentages: Stripe.List.t(),
+          fixed_amounts: Stripe.List.t(non_neg_integer),
+          percentages: Stripe.List.t(non_neg_integer),
           smart_tip_threshold: non_neg_integer
         }
 
   @type sek :: %{
-          fixed_amounts: Stripe.List.t(),
-          percentages: Stripe.List.t(),
+          fixed_amounts: Stripe.List.t(non_neg_integer),
+          percentages: Stripe.List.t(non_neg_integer),
           smart_tip_threshold: non_neg_integer
         }
 
   @type sgd :: %{
-          fixed_amounts: Stripe.List.t(),
-          percentages: Stripe.List.t(),
+          fixed_amounts: Stripe.List.t(non_neg_integer),
+          percentages: Stripe.List.t(non_neg_integer),
           smart_tip_threshold: non_neg_integer
         }
 
   @type usd :: %{
-          fixed_amounts: Stripe.List.t(),
-          percentages: Stripe.List.t(),
+          fixed_amounts: Stripe.List.t(non_neg_integer),
+          percentages: Stripe.List.t(non_neg_integer),
           smart_tip_threshold: non_neg_integer
         }
 end
