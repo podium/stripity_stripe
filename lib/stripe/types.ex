@@ -73,8 +73,8 @@ defmodule Stripe.Types do
         }
 
   @type cad :: %{
-          fixed_amounts: Stripe.List.t(),
-          percentages: Stripe.List.t(),
+          fixed_amounts: Stripe.List.t(non_neg_integer),
+          percentages: Stripe.List.t(non_neg_integer),
           smart_tip_threshold: non_neg_integer
         }
 

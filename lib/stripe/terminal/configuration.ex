@@ -127,7 +127,7 @@ defmodule Stripe.Terminal.Configuration do
   @doc """
   List all terminal configurations
   """
-  @spec list(params, Stripe.options()) :: {:ok, Stripe.List.t()} | {:error, Stripe.Error.t()}
+  @spec list(params, Stripe.options()) :: {:ok, Stripe.List.t(t)} | {:error, Stripe.Error.t()}
         when params: %{
                optional(:is_account_default) => boolean(),
                optional(:ending_before) => t | Stripe.id(),
