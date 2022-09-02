@@ -68,6 +68,7 @@ defmodule Stripe.Util do
   def object_name_to_module("issuing.transaction"), do: Stripe.Issuing.Transaction
   def object_name_to_module("tax_id"), do: Stripe.TaxID
   def object_name_to_module("usage_record"), do: Stripe.SubscriptionItem.Usage
+  def object_name_to_module("terminal.configuration"), do: Stripe.Terminal.Configuration
   def object_name_to_module("terminal.connection_token"), do: Stripe.Terminal.ConnectionToken
   def object_name_to_module("terminal.hardware_order"), do: Stripe.Terminal.HardwareOrder
   def object_name_to_module("terminal.hardware_sku"), do: Stripe.Terminal.HardwareSku
