@@ -70,6 +70,8 @@ defmodule Stripe.Terminal.Reader do
 
   @plural_endpoint "terminal/readers"
 
+  @test_helper_plural_endpoint "test_helpers/terminal/readers"
+
   @doc """
   Create a new reader
   """
@@ -185,6 +187,21 @@ defmodule Stripe.Terminal.Reader do
     |> put_endpoint(@plural_endpoint <> "/#{get_id!(id)}/process_payment_intent")
     |> put_method(:post)
     |> put_params(params)
+    |> make_request()
+  end
+
+  @doc """
+  Simulate a cardholder tapping or inserting their card on the simulated reader.
+
+  Takes the `id` and a map with a payment intents id.
+  """
+  @spec present_payment_method(Stripe.id() | t, Stripe.options()) ::
+          {:ok, t} | {:error, Stripe.Error.t()}
+
+  def present_payment_method(id, opts \\ []) do
+    new_request(opts)
+    |> put_endpoint(@test_helper_plural_endpoint <> "/#{get_id!(id)}/present_payment_method")
+    |> put_method(:post)
     |> make_request()
   end
 
